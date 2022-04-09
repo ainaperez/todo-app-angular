@@ -1,3 +1,52 @@
-<div class='container mt-2'>
-    {{ todo.title }}
+<!--If we are in Editing mode-->
+<div class='container mt-2' *ngIf='isEditing'>
+    <div class='row'>
+        <div class='col-4'>
+            <input 
+                type='text' 
+                class='form-control hidden' 
+                [formControl]='titleInput' />
+        </div> 
+        <div class='col-8'>
+            <button 
+                (click)='submitTask()'
+                class='btn btn-primary m1-2'
+                type='button'>Submit
+            </button>
+        </div>
+    </div>
 </div>
+
+<!--if we are in Reading mode-->
+<div class='container mt-2' *ngIf='!isEditing'>
+    <div class='row'>
+        <div class='col-4' [class.completed]='todo.done'>
+            {{ todo.title }}
+        </div>
+        <div class='col-8'>
+            <button 
+                (click)='completeTask()'
+                class='btn btn-success' 
+                type='button'
+                *ngIf='!todo.done'>
+                Done
+            </button>
+            <button 
+                (click)='completeTask()'
+                class='btn btn-primary m1-2' 
+                type='button'
+                *ngIf='!todo.done'>
+                Edit
+            </button>
+            <button 
+                (click)='completeTask()'
+                class='btn btn-danger m1-2' 
+                type='button'>
+                Delete
+            </button>
+        </div>
+    </div>
+</div>
+
+<hr>
+<hr>
